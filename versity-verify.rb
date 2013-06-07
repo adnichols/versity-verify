@@ -1,4 +1,4 @@
-#!/opt/chef/embedded/bin/ruby
+#!/usr/bin/env ruby
 #
 # Check the state of a system to determine
 # if it is setup for debugging by Versity
