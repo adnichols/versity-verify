@@ -3,6 +3,7 @@
 
 EMBEDDED_RUBY="/opt/chef/embedded/bin/ruby"
 EMBEDDED_RUBY_URL="https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.4.4-2.el6.x86_64.rpm"
+MYDIR=`dirname $0`
 enable_debug="false"
 
 if [[ $1 && $1 -eq "debug" ]]; then
@@ -58,9 +59,9 @@ function check_embedded_ruby () {
 
 function run_versity_verify () {
   if [[ $use_system_ruby == true ]]; then
-    ruby ./versity-verify.rb
+    ruby $MYDIR/versity-verify.rb
   else
-    $EMBEDDED_RUBY ./versity-verify.rb
+    $EMBEDDED_RUBY $MYDIR/versity-verify.rb
   fi
 }
 
