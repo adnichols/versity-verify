@@ -102,7 +102,7 @@ end
 
 kdump_status = %x(/sbin/service kdump status)
 if kdump_status =~ /Kdump is not operational/
-  puts_fail "Kdump is not configured correctly, we will be unable to capture core dumps"
+  puts_fail "Kdump is not configured correctly, we will be unable to capture kernel core dumps"
 else
   puts_ok "Kdump is operational"
 end
