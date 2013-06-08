@@ -6,29 +6,31 @@ Script to validate pre-install for versity
 Requirements
 ============
 This script requires ruby 1.9 and is presently ONLY designed for use on CentOS 6
-If you are not familiar or comfortable getting ruby 1.9 on your system then
-use this installer which will install an isolated version of ruby for use
-with this script
 
-<pre>
-  # rpm -ivh https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.4.4-2.el6.x86_64.rpm
-</pre>
+The run.sh script will take care of checking for a suitable ruby version and 
+install a localized version if ruby is not on the system. There is an uninstall.sh
+script which can be used to remove the localized ruby if you no longer want it.
+
+The ruby package installed is provided by OpsCode and is their installer for 
+the "chef" configuration management tool. If you have questions or concerns
+about the contents of that installer you can view the source here:
+
+https://github.com/opscode/omnibus-chef
 
 Usage
 =====
 This script must be run as root. Usage via sudo should be fine. 
 
-1. If running this script using an existing ruby 1.9 install:
+Run the run.sh script as root
 
 <pre>
-  $ sudo ruby versity-verify.rb
+$ sudo ./run.sh
 </pre>
 
-2. If running with the above embedded ruby install
-
-<pre>
-  $ sudo /opt/chef/embedded/bin/ruby versity-verify.rb
-</pre>
+It will prompt you if it needs to install the localized ruby and you will have
+an opportunity to reject that option if you prefer not to do that. If the 
+existing ruby is suitable or the localized ruby is already installed, it will
+run the versity-check.rb script to validate the system setup. 
 
 Expected Results
 ================
