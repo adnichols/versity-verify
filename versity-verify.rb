@@ -127,7 +127,7 @@ end
 
 puts
 puts '*** Checking for CIS scripts ***'
-%w( proc-daily-lops proc-samdump).each do |cis_script|
+%w( proc-daily-logs proc-samfsdump).each do |cis_script|
   if File.exists?("/CIS/sbin/#{cis_script}")
     puts_ok "#{cis_script} FOUND!"
   else 
