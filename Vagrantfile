@@ -6,8 +6,13 @@ Vagrant.configure("2") do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
+  config.vm.define 'centos-6' do |c|
+    c.vm.box = "opscode-centos-6.3"
+    c.vm.box_url = "http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box"
+  end
+
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "opscode-centos-6.3"
+  #config.vm.box = "opscode-centos-6.3"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.

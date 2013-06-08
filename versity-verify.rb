@@ -38,6 +38,7 @@ puts "*** Collecting System Information ***"
 kernel_release = %x(uname -r).chomp
 puts "Kernel release #{kernel_release}"
 
+puts
 puts "*** Checking Package information ***"
 # Get our package list
 package_list = []
@@ -84,6 +85,7 @@ end
   end
 end
 
+puts
 puts "*** Checking debug dependencies ***"
 # Check for crashkernel
 if File.exists?("/usr/lib/debug/lib/modules/#{kernel_release}/vmlinux")
@@ -105,6 +107,7 @@ else
   puts_ok "Kdump is operational"
 end
 
+puts
 puts '*** Checking security configuration ***'
 if %x(/sbin/service iptables status) =~ /Firewall is not running/
   puts_ok "Firewall disabled"
@@ -115,6 +118,14 @@ else
   puts "--- END of Firewall rules ---"
 end
 
+se_status = %x(/usr/sbin/getenforce)
+if se_status =~ /Enforcing/
+  puts_fail "Selinux set to 'Enforcing' which is likely to cause problems"
+else
+  puts_ok "Selinux set to #{se_status}"
+end
+
+puts
 puts '*** Checking for CIS scripts ***'
 %w( proc-daily-lops proc-samdump).each do |cis_script|
   if File.exists?("/CIS/sbin/#{cis_script}")
@@ -124,11 +135,5 @@ puts '*** Checking for CIS scripts ***'
   end
 end
 
-se_status = %x(/usr/sbin/getenforce)
-if se_status =~ /Enforcing/
-  puts_fail "Selinux set to 'Enforcing' which is likely to cause problems"
-else
-  puts_ok "Selinux set to #{se_status}"
-end
 
 summary
