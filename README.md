@@ -32,6 +32,12 @@ an opportunity to reject that option if you prefer not to do that. If the
 existing ruby is suitable or the localized ruby is already installed, it will
 run the versity-check.rb script to validate the system setup. 
 
+NOTE: This does require Internet access, if the system you are installing on
+does not have Internet access then you can download the RPM manually and install
+it from here:
+
+https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chef-11.4.4-2.el6.x86_64.rpm
+
 Expected Results
 ================
 
