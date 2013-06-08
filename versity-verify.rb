@@ -92,8 +92,10 @@ else
   puts_fail "Missing crash kernel for #{kernel_release}"
 end
 
-if open('/etc/sysctl.conf').grep(/kernel.sysrq/)[0].split(/\=/)[1] != 1
+if %x(sysctl kernel.sysrq).chomp.split(/\=/)[1] !~ /1/
   puts_warn "sysctl: kernel.sysrq is not set to 1, Magic Sysrq key will not work to capture kernel core"
+else
+  puts_ok "sysctl: kernel.sysrq set to 1"
 end
 
 kdump_status = %x(/sbin/service kdump status)
@@ -108,6 +110,18 @@ if %x(/sbin/service iptables status) =~ /Firewall is not running/
   puts_ok "Firewall disabled"
 else
   puts_warn "IPtables enabled, check rules to make sure it will not interfere with operation"
+  puts "--- Firewall rules in place ---"
+  puts %x(/sbin/iptables -L -v)
+  puts "--- END of Firewall rules ---"
+end
+
+puts '*** Checking for CIS scripts ***'
+%w( proc-daily-lops proc-samdump).each do |cis_script|
+  if File.exists?("/CIS/sbin/#{cis_script}")
+    puts_ok "#{cis_script} FOUND!"
+  else 
+    puts_warn "#{cis_script} MISSING!"
+  end
 end
 
 se_status = %x(/usr/sbin/getenforce)
