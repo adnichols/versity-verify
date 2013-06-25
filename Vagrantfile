@@ -6,13 +6,8 @@ Vagrant.configure("2") do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  config.vm.define 'centos-6' do |c|
-    c.vm.box = "opscode-centos-6.3"
-    c.vm.box_url = "http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.3_chef-11.2.0.box"
-  end
-
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = "opscode-centos-6.3"
+  config.vm.box = "centos-6"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -36,7 +31,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "~/projects/versity-verify", "/versity-verify"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -56,7 +51,7 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
-  # the file base.pp in the manifests_path directory.
+  # the file centos-6.pp in the manifests_path directory.
   #
   # An example Puppet manifest to provision the message of the day:
   #
@@ -73,7 +68,7 @@ Vagrant.configure("2") do |config|
   #
   # config.vm.provision :puppet do |puppet|
   #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "base.pp"
+  #   puppet.manifest_file  = "init.pp"
   # end
 
   # Enable provisioning with chef solo, specifying a cookbooks path, roles
