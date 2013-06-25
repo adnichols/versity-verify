@@ -3,7 +3,7 @@
 # Check the state of a system to determine
 # if it is setup for debugging by Versity
 #
-
+ENV['PATH'] = "/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:#{ENV['PATH']}"
 require 'pp'
 
 @failures = 0
@@ -94,7 +94,7 @@ else
   puts_fail "Missing crash kernel for #{kernel_release}"
 end
 
-if %x(sysctl kernel.sysrq).chomp.split(/\=/)[1] !~ /1/
+if %x(/sbin/sysctl kernel.sysrq).chomp.split(/\=/)[1] !~ /1/
   puts_warn "sysctl: kernel.sysrq is not set to 1, Magic Sysrq key will not work to capture kernel core"
 else
   puts_ok "sysctl: kernel.sysrq set to 1"
